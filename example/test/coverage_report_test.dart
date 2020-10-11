@@ -5,6 +5,7 @@
 // **************************************************************************
 
 // ignore_for_file: unused_import
-
 import 'package:example/my_file.dart';
 import 'package:example/services/my_service.dart';
+
+void main() {}
