@@ -25,7 +25,6 @@ void main(List<String> arguments) async {
     exit(0);
   } else {
     filepath = args['output'] ?? _outputPath;
-    print(filepath);
 
     if ((args['remove'] as List<String>).isNotEmpty) {
       regExp = RegExpUtils.combinePatterns(args['remove']);
@@ -61,17 +60,18 @@ Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIg
 
   // determine output content
   final sb = StringBuffer();
-  sb.write('// GENERATED CODE - DO NOT MODIFY BY HAND\n');
-  sb.write('\n');
-  sb.write('// **************************************************************************\n');
-  sb.write('// All files which should be covered by tests\n');
-  sb.write('// **************************************************************************\n');
-  sb.write('\n');
-  sb.write('// ignore_for_file: unused_import\n');
-  sb.write('\n');
+  sb.writeln('// GENERATED CODE - DO NOT MODIFY BY HAND');
+  sb.writeln();
+  sb.writeln('// **************************************************************************');
+  sb.writeln('// All files which should be covered by tests');
+  sb.writeln('// **************************************************************************');
+  sb.writeln();
+  sb.writeln('// ignore_for_file: unused_import');
   for (final path in paths) {
-    sb.write('import \'package:$projectName/${path.replaceAll('lib/', '')}\';\n');
+    sb.writeln('import \'package:$projectName/${path.replaceAll('lib/', '')}\';');
   }
+  sb.writeln();
+  sb.writeln('void main() {}');
 
   // write to disk
   file = File(filepath);
@@ -79,6 +79,8 @@ Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIg
     await file.create(recursive: true);
   }
   file.writeAsStringSync(sb.toString());
+
+  print('Generated $filepath.');
 }
 
 /// Lists all files (recursively) in a given folder
