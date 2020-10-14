@@ -25,7 +25,6 @@ void main(List<String> arguments) async {
     exit(0);
   } else {
     filepath = args['output'] ?? _outputPath;
-    print(filepath);
 
     if ((args['remove'] as List<String>).isNotEmpty) {
       regExp = RegExpUtils.combinePatterns(args['remove']);
@@ -80,6 +79,8 @@ Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIg
     await file.create(recursive: true);
   }
   file.writeAsStringSync(sb.toString());
+
+  print('Generated $filepath.');
 }
 
 /// Lists all files (recursively) in a given folder

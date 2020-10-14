@@ -46,6 +46,8 @@ void main(List<String> arguments) async {
 
   // edit file
   await _editLcov(file, regExp);
+
+  print('Edited ${file.path}.');
 }
 
 Future<void> _editLcov(File file, RegExp regExpFilesRemove) async {
