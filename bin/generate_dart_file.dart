@@ -40,7 +40,7 @@ const _pubspecPath = 'pubspec.yaml';
 
 Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIgnore) async {
   // dtermine contents of pubspec
-  File file = File(_pubspecPath);
+  var file = File(_pubspecPath);
   if (!file.existsSync()) {
     print('Error! Pubspec not found. Please run from project root. Exiting.');
     exit(0);
@@ -92,7 +92,7 @@ Future<List<String>> _listDir(String folderPath, {RegExp regExp}) async {
   final directory = Directory(folderPath);
   if (await directory.exists()) {
     await for (FileSystemEntity entity in directory.list(recursive: true, followLinks: false)) {
-      FileSystemEntityType type = await FileSystemEntity.type(entity.path);
+      var type = await FileSystemEntity.type(entity.path);
       if (type == FileSystemEntityType.file) {
         if (!_isDartFile(entity)) {
           continue;
