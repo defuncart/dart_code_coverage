@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:path/path.dart';
 
 import 'utils/reg_exp_utils.dart';
 
@@ -93,6 +94,10 @@ Future<List<String>> _listDir(String folderPath, {RegExp regExp}) async {
     await for (FileSystemEntity entity in directory.list(recursive: true, followLinks: false)) {
       FileSystemEntityType type = await FileSystemEntity.type(entity.path);
       if (type == FileSystemEntityType.file) {
+        if (!_isDartFile(entity)) {
+          continue;
+        }
+
         if (regExp != null) {
           if (regExp.hasMatch(entity.path)) {
             continue;
@@ -106,4 +111,10 @@ Future<List<String>> _listDir(String folderPath, {RegExp regExp}) async {
   }
 
   return paths;
+}
+
+/// Determines if a [FileSystemEntity] is a dart file
+bool _isDartFile(FileSystemEntity entity) {
+  const dartFileExtension = '.dart';
+  return extension(entity.path).toLowerCase() == dartFileExtension;
 }
