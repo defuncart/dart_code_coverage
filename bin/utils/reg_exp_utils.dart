@@ -2,10 +2,10 @@
 abstract class RegExpUtils {
   /// Combines a list of string patterns into a RegExp
   static RegExp combinePatterns(List<String> patterns) {
-    if (patterns != null && patterns.isNotEmpty) {
+    if (patterns.isNotEmpty) {
       var combinedPattern = '';
       for (var i = 0; i < patterns.length; i++) {
-        if (patterns[i] == null || patterns[i].isEmpty) {
+        if (patterns[i].isEmpty) {
           continue;
         }
 
@@ -18,6 +18,6 @@ abstract class RegExpUtils {
       return RegExp(combinedPattern);
     }
 
-    return null;
+    return RegExp('');
   }
 }
