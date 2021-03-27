@@ -8,8 +8,8 @@ import 'utils/reg_exp_utils.dart';
 const _outputPath = 'test/coverage_report_test.dart';
 
 void main(List<String> arguments) async {
-  String filepath;
-  RegExp regExp;
+  late String filepath;
+  RegExp? regExp;
 
   // setup parser
   final parser = ArgParser()
@@ -38,7 +38,7 @@ void main(List<String> arguments) async {
 
 const _pubspecPath = 'pubspec.yaml';
 
-Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIgnore) async {
+Future<void> _createCoverageReportDartFile(String filepath, RegExp? regExpFilesIgnore) async {
   // dtermine contents of pubspec
   var file = File(_pubspecPath);
   if (!file.existsSync()) {
@@ -49,8 +49,8 @@ Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIg
 
   // determine project name
   final regExp = RegExp(r'(name: )(\w*)');
-  final matches = regExp.allMatches(contents)?.first;
-  final projectName = matches != null && matches.groupCount >= 2 ? matches.group(2) : null;
+  final matches = regExp.allMatches(contents).first;
+  final projectName = matches.groupCount >= 2 ? matches.group(2) : null;
   if (projectName == null) {
     print('Error! Cannot determine project name. Exiting.');
     exit(0);
@@ -87,7 +87,7 @@ Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIg
 /// Lists all files (recursively) in a given folder
 ///
 /// [regExp] is an optional RegExp for files to ignore
-Future<List<String>> _listDir(String folderPath, {RegExp regExp}) async {
+Future<List<String>> _listDir(String folderPath, {RegExp? regExp}) async {
   final paths = <String>[];
   final directory = Directory(folderPath);
   if (await directory.exists()) {

@@ -8,8 +8,8 @@ const _lcovPath = 'coverage/lcov.info';
 const _emptyString = '';
 
 void main(List<String> arguments) async {
-  File file;
-  RegExp regExp;
+  late File file;
+  late RegExp regExp;
 
   // setup parser
   final parser = ArgParser()
@@ -28,7 +28,7 @@ void main(List<String> arguments) async {
     final lcovFilepath = args['file'] ?? _lcovPath;
     file = File(lcovFilepath);
     if (!file.existsSync()) {
-      print('Error! No lcov file found at ${lcovFilepath}');
+      print('Error! No lcov file found at $lcovFilepath');
       exit(0);
     }
 
@@ -58,11 +58,9 @@ Future<void> _editLcov(File file, RegExp regExpFilesRemove) async {
   final entries = <List<String>>[];
   while (contents.isNotEmpty) {
     final index = contents.indexWhere((element) => element.contains('end_of_record'));
-    if (index != null) {
-      final entry = contents.sublist(0, index + 1);
-      contents.removeRange(0, index + 1);
-      entries.add(entry);
-    }
+    final entry = contents.sublist(0, index + 1);
+    contents.removeRange(0, index + 1);
+    entries.add(entry);
   }
 
   // determine entries to remove

@@ -3,8 +3,11 @@ description: An example for dart_code_coverage
 version: 1.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0 < 3.0.0"
 
 dev_dependencies:
+  flutter_test:
+    sdk: flutter
   dart_code_coverage:
     path: ../
