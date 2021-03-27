@@ -9,7 +9,7 @@ const _outputPath = 'test/coverage_report_test.dart';
 
 void main(List<String> arguments) async {
   late String filepath;
-  late RegExp regExp;
+  RegExp? regExp;
 
   // setup parser
   final parser = ArgParser()
@@ -38,7 +38,7 @@ void main(List<String> arguments) async {
 
 const _pubspecPath = 'pubspec.yaml';
 
-Future<void> _createCoverageReportDartFile(String filepath, RegExp regExpFilesIgnore) async {
+Future<void> _createCoverageReportDartFile(String filepath, RegExp? regExpFilesIgnore) async {
   // dtermine contents of pubspec
   var file = File(_pubspecPath);
   if (!file.existsSync()) {
