@@ -58,8 +58,6 @@ Future<void> _editLcov(File file, RegExp regExpFilesRemove) async {
   final entries = <List<String>>[];
   while (contents.isNotEmpty) {
     final index = contents.indexWhere((element) => element.contains('end_of_record'));
-    // if (index == -1) {}
-
     final entry = contents.sublist(0, index + 1);
     contents.removeRange(0, index + 1);
     entries.add(entry);
