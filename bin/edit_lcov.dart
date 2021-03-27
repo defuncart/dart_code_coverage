@@ -28,7 +28,7 @@ void main(List<String> arguments) async {
     final lcovFilepath = args['file'] ?? _lcovPath;
     file = File(lcovFilepath);
     if (!file.existsSync()) {
-      print('Error! No lcov file found at ${lcovFilepath}');
+      print('Error! No lcov file found at $lcovFilepath');
       exit(0);
     }
 
